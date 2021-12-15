@@ -7,6 +7,7 @@ Remote
 remote repository(online github)
 ----
 git init=initialise your repository with git and git starts tracking your changes in the file
+\
 git status=tells us in which files the changes took place
 git add filename=adds file to staging area
 git commit -m "write message"=commit a file to commit history
