@@ -1,0 +1,119 @@
+git config --global user.name “subhrapattnaik"
+
+
+git config --global user.email "subhra.pattnaik@gmail.com”
+
+
+git remote add new https://github.com/subhrapattnaik/new.git
+
+
+(new —is the folder name in git website(without readme)
+
+git push -u new
+
+git push --set-upstream new master
+
+
+
+asks for git username
+asks for git password
+
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/subhrapattnaik/new.git/‘
+
+
+
+Refer
+
+https://levelup.gitconnected.com/fix-password-authentication-github-3395e579ce74
+
+***************************************************************
+Step 1: Create Access Token on GitHub
+
+First of all, you must create a personal Access Token on GitHub. To do so follow the steps below:
+
+Click on your GitHub profile icon on the top right corner
+Click Settings
+From the menu shown on the left, click Developer Settings
+Click Personal access tokens
+Click Generate new token
+Add a note that will help you identify the scope of the access token to be generated
+Choose the Expiration period from the drop down menu (Ideally you should avoid choosing the No Expiration option)
+Finally, select the scopes you want to grant the corresponding access to the generated access token. Make sure to select the minimum required scopes otherwise you will still have troubles performing certain Git Operations.
+Finally click Generate Token
+By now, you should have generated your personal access token successfully and the following message should be visible on your screen.
+
+
+Source: Author
+Underneath that message, you should also be able to see your personal access token. Make sure to copy it as we will need it in the following step(s).
+
+Step 2: Change the remote URL
+
+Now that we have created our personal access token, we need to run the following command:
+
+git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+In the above command make sure to replace:
+
+<githubtoken> with the personal access token you have copied in the previous step
+<username> with your GitHub username
+<repositoryname> with the name of your GitHub repository
+Step 3: Test that it works
+
+Now we have successfully configured token-based authentication for a specific repository on GitHub. To test that everything went to plan, simply try to push the changes you’ve made locally to the remote host. For example,
+
+$ git push -u origin main
+and the Git operation should be executed with no issues.
+
+**************************************************************
+
+
+(base) samir@samirs-MacBook-Air new % git remote set-url origin https://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@github.com/subhrapattnaik/new.git
+(base) samir@samirs-MacBook-Air new % git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/subhrapattnaik/new.git’
+
+————————————————————————————
+Two possibilities :
+
+1- Either you forgot to include the .gitignore file.
+
+Here are all the steps required:
+
+Create an empty Git repository on remote,
+
+On local create the .gitignore file for your project. GitHub gives you a list of examples here
+
+Launch a terminal, and in your project do the following commands:
+
+git remote add origin YOUR/ORIGIN.git
+
+git add .
+
+git commit -m "initial commit or whatever message for first commit"
+
+git push -u origin master
+
+
+—————————————————
+
+2- Or you are trying to create a new Github project.
+
+Github replaced master with main as the default branch name. To resolve the issue :
+
+On your local project:
+remove the .git folder if it exists
+recreate a clean repository by launching the following in your project:
+in the terminal:
+
+git init
+
+git add .
+
+git commit -m "YOUR FIRST MESSAGE HERE"
+
+git branch -M main
+
+git remote add origin _GIT_LINK_TO_PROJECT_HERE_
+
+git push -u origin main
